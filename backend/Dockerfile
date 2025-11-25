@@ -16,5 +16,6 @@ COPY app ./app
 # Expose port
 EXPOSE 8000
 
-# Run FastAPI
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# Run FastAPI; use PORT env var if provided (Render and other hosts provide $PORT)
+# Use shell form so environment variable expansion works
+CMD sh -c "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --reload"
