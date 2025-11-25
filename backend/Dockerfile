@@ -1,16 +1,20 @@
 FROM python:3.12-slim
 
+# Set working directory
 WORKDIR /app
 
-# Copy and install requirements
-COPY backend/app/requirements.txt .
+# Copy requirements
+COPY requirements.txt .
+
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy backend app code
-COPY backend/app ./app
-COPY backend/__init__.py ./
+# Copy FastAPI app code
+COPY app ./app
+COPY __init__.py .  # optional, can skip if empty
 
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONPATH=/app:$PYTHONPATH
+# Expose port
+EXPOSE 8000
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run FastAPI
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
