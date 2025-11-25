@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-function MapView() {
+function MapView({ onPredict }) {
+  // Initialize input values
   const [inputData, setInputData] = useState({
     ph: 7.0,
     hardness: 150.0,
@@ -13,6 +14,7 @@ function MapView() {
     turbidity: 3.5,
   });
 
+  // Update state when inputs change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputData({
@@ -21,10 +23,11 @@ function MapView() {
     });
   };
 
+  // Submit form: send data to backend via parent handler
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Send data to parent or API
-    console.log('Input data:', inputData);
+    console.log("Sending data to backend:", inputData);
+    onPredict(inputData); // call App.js handler
   };
 
   return (
