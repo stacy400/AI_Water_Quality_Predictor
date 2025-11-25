@@ -8,7 +8,7 @@ function App() {
   const handlePrediction = async (data) => {
     try {
       console.log("Sending data to backend:", data);
-      const response = await fetch("https://ai-water-quality-predictor.onrender.com/predict", {
+      const response = await fetch("https://ai-water-quality-predictor-1.onrender.com", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
